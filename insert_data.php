@@ -21,7 +21,7 @@ foreach ($data as $record) {
         $employee_id = $conn->insert_id;
     }
 
-    //  Check if event already exists
+    //  Check if event already exists otherwise insert in the event table
     $stmt = $conn->prepare("SELECT event_id FROM events WHERE event_name = ?");
     $stmt->bind_param("s", $record['event_name']);
     $stmt->execute();
@@ -36,10 +36,10 @@ foreach ($data as $record) {
         $event_id = $conn->insert_id;
     }
 
-    // Step 3: Adjust timezone based on version
+    // Adjust timezone based on version condition as required
     $eventDate = adjustTimezone($record['event_date'], $record['version']);
 
-    // Step 4: Insert into participation table
+    //  Insert into participation table
     $stmt = $conn->prepare("INSERT INTO participation (participation_id, employee_id, event_id, participation_fee, event_date, version) 
                             VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
@@ -58,7 +58,7 @@ foreach ($data as $record) {
 function adjustTimezone($dateStr, $version) {
     $eventDate = new \DateTime($dateStr);
 if (version_compare($version, "1.0.17+60", "<")) {
-    // Before version 1.0.17+60, convert Europe/Berlin to UTC
+    // convert Europe/Berlin to UTC if version<1.0.17+60
     $timezone = new \DateTimeZone("Europe/Berlin");
     $eventDate->setTimezone($timezone);
     $eventDate->modify("-2 hours"); // Adjust for UTC

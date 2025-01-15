@@ -5,7 +5,6 @@ $username = 'root';
 $password = 'root'; 
 $database = 'event_booking_system';
 
-
 $conn = new mysqli($host, $username, $password, $database);
 
 // connection test

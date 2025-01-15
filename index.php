@@ -36,6 +36,51 @@ $result = $stmt->get_result();
 <html>
 <head>
     <title>Event Participation</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+    input {
+        padding: 5px;
+        margin-right: 10px;
+    }
+    button {
+        padding: 6px 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
 </head>
 <body>
     <h1>Event Participation</h1>
@@ -50,7 +95,7 @@ $result = $stmt->get_result();
         <button type="submit">Filter</button>
     </form>
      <!-- the table below for displaying the data  -->
-    <table border="1">
+    <table border="1" >
         <thead>
             <tr>
                 <th>Employee Name</th>
