@@ -1,29 +1,13 @@
 <?php
 require 'db_connection.php';
-
+require 'queries.php';
 //below the three filter inputs
 $employeeFilter = isset($_POST['employeeFilter']) ? $_POST['employeeFilter'] : '';
 $eventFilter = isset($_POST['eventFilter']) ? $_POST['eventFilter'] : '';
 $dateFilter = isset($_POST['dateFilter']) ? $_POST['dateFilter'] : '';
 
 // Prepare query with optional filters
-$sql = "
-    SELECT 
-        e.employee_name, 
-        ev.event_name, 
-        p.event_date, 
-        p.participation_fee 
-    FROM 
-        participation p
-    JOIN 
-        employees e ON p.employee_id = e.employee_id
-    JOIN 
-        events ev ON p.event_id = ev.event_id
-    WHERE 
-        (e.employee_name LIKE ? OR ? = '') AND
-        (ev.event_name LIKE ? OR ? = '') AND
-        (p.event_date = ? OR ? = '')
-";
+$sql = $sql_filter_query;
 $stmt = $conn->prepare($sql);
 $likeEmployee = '%' . $employeeFilter . '%';
 $likeEvent = '%' . $eventFilter . '%';
